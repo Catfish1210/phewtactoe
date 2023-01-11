@@ -1,0 +1,51 @@
+/*
+Colors used for this project:
+Cyan: #38c4bd
+Orange: #f1b142
+Grayscale: #a8bdc7
+DeepBlue(background): #192a32
+LighterDeepBlue: #203540
+
+FONT: Sofia Sans (regular 400 + Medium 500 italic)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,400;1,500&display=swap');
+
+
+
+body {
+    background: #192a32;
+    color: #fff;
+    overflow: hidden;
+}
+
+h1 {
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.square-box {
+    width: 100px;
+    height: 100px;
+    background-color: #203540;
+    border-radius: 15px;
+    box-shadow: 4px 6px 4px #111b20;
+    padding: 8px;
+    border: solid 2px transparent;
+    transition: border 0.2s ease-in-out;
+    
+}
+
+.square-box:hover {
+    border: solid 1px #75a9c5b5;
+    cursor: pointer;
+}
+
+table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    border-spacing: 13px;
+
+}
