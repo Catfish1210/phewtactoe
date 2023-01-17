@@ -1,21 +1,162 @@
-var cells = document.querySelectorAll("td");
-for (var i = 0; i < cells.length; i++) {
-    cells[i].addEventListener("click", function(e) {
-      if (e.target.textContent === "") {
-        var icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        icon.setAttributeNS(null, "viewBox", "0 0 100 100");
-        icon.setAttributeNS(null, "class", "x-icon");
-        var path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path1.setAttributeNS(null, "d", "M 10 10 L 90 90");
-        path1.setAttributeNS(null, "stroke", "cyan");
-        path1.setAttributeNS(null, "stroke-width", "20");
-        var path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path2.setAttributeNS(null, "d", "M 10 90 L 90 10");
-        path2.setAttributeNS(null, "stroke", "cyan");
-        path2.setAttributeNS(null, "stroke-width", "20");
-        icon.appendChild(path1);
-        icon.appendChild(path2);
-        e.target.appendChild(icon);
-      }
-    });
+const cells = document.querySelectorAll(".cell");
+
+const statusText = document.querySelector("#statusText");
+
+const restartBtn = document.querySelector("#restartBtn");
+
+const winConditions = [
+
+    [0, 1, 2],
+
+    [3, 4, 5],
+
+    [6, 7, 8],
+
+    [0, 3, 6],
+
+    [1, 4, 7],
+
+    [2, 5, 8],
+
+    [0, 4, 8],
+
+    [2, 4, 6]
+
+];
+
+let options = ["", "", "", "", "", "", "", "", ""];
+
+let currentPlayer = "X";
+
+let running = false;
+
+
+
+initializeGame();
+
+
+
+function initializeGame(){
+
+    cells.forEach(cell => cell.addEventListener("click", cellClicked));
+
+    restartBtn.addEventListener("click", restartGame);
+    
+    continueBtn.addEventListener("click", restartGame);
+
+
+    statusText.textContent = `${currentPlayer}'s turn`;
+
+    running = true;
+
+}
+
+function cellClicked(){
+
+    const cellIndex = this.getAttribute("cellIndex");
+
+
+
+    if(options[cellIndex] != "" || !running){
+
+        return;
+
+    }
+
+
+
+    updateCell(this, cellIndex);
+
+    checkWinner();
+
+}
+
+function updateCell(cell, index){
+
+    options[index] = currentPlayer;
+
+    cell.textContent = currentPlayer;
+
+}
+
+function changePlayer(){
+
+    currentPlayer = (currentPlayer == "X") ? "O" : "X";
+
+    statusText.textContent = `${currentPlayer}'s turn`;
+
+}
+
+function checkWinner(){
+
+    let roundWon = false;
+
+
+
+    for(let i = 0; i < winConditions.length; i++){
+
+        const condition = winConditions[i];
+
+        const cellA = options[condition[0]];
+
+        const cellB = options[condition[1]];
+
+        const cellC = options[condition[2]];
+
+
+
+        if(cellA == "" || cellB == "" || cellC == ""){
+
+            continue;
+
+        }
+
+        if(cellA == cellB && cellB == cellC){
+
+            roundWon = true;
+
+            break;
+
+        }
+
+    }
+
+
+
+    if(roundWon){
+
+        statusText.textContent = `${currentPlayer} wins!`;
+
+        running = false;
+
+    }
+
+    else if(!options.includes("")){
+
+        statusText.textContent = `Draw!`;
+
+        running = false;
+
+    }
+
+    else{
+
+        changePlayer();
+
+    }
+
+}
+
+function restartGame(){
+
+    currentPlayer = "X";
+
+    options = ["", "", "", "", "", "", "", "", ""];
+
+    statusText.textContent = `${currentPlayer}'s turn`;
+
+    cells.forEach(cell => cell.textContent = "");
+
+    running = true;
+
 }
