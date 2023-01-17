@@ -43,9 +43,38 @@ h1 {
 
 table {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     height: 100vh;
     border-spacing: 13px;
-
 }
+
+.square-box02 {
+    width: 50px;
+    height: 30px;
+    background-color: #203540;
+    border-radius: 15px;
+    box-shadow: 4px 6px 4px #111b20;
+    padding: 8px;
+    border: solid 3px transparent;
+    transition: border 0.2s ease-in-out;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 700;
+    font-style: bold;
+    text-align: center;
+}
+
+.square-box02:hover {
+    border: solid 2px #75a9c5b5;
+    cursor: pointer;
+}
+
+.square-box03 {
+    width: 100px;
+    height: 60px;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
