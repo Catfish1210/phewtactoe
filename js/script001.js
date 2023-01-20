@@ -15,83 +15,89 @@ function randomTurn() {
             counter++;
         }
     }
-};
+}
 
 
 
 
-var cell0 = document.getElementById("cell-0")
-cell0.addEventListener("click", function() {
-    document.getElementById("cell-0").innerHTML = "X";
-    gameArray[0] = "x";
-    alert (gameArray);
-});
-var cell1 = document.getElementById("cell-1")
-cell1.addEventListener("click", function() {
-    document.getElementById("cell-1").innerHTML = "X";
-    gameArray[1] = "x";
-    alert (gameArray);
-});
 
-var cell2 = document.getElementById("cell-2")
-cell2.addEventListener("click", function() {
-    document.getElementById("cell-2").innerHTML = "X";
-    gameArray[2] = "x";
-    alert (gameArray);
-}); 
+function computerMove () {
+    // remove clicking property (pointer events) from user
+    let squareBox = document.querySelector('.square-box');
+    squareBox.classList.remove('.square-box:hover');
 
-var cell3 = document.getElementById("cell-3")
-cell3.addEventListener("click", function() {
-    document.getElementById("cell-3").innerHTML = "X";
-    gameArray[3] = "x";
-    alert (gameArray);
-});
 
-var cell4 = document.getElementById("cell-4")
-cell4.addEventListener("click", function() {
-    document.getElementById("cell-4").innerHTML = "X";
-    gameArray[4] = "x";
-    alert (gameArray);
-});
+    // Wait 2 secondes before continuing
+    setTimeout(function() {
+        console.log("Deciding on my move...")
+        let cellIndex = randomTurn();
+        gameArray[cellIndex] = "O";
+        document.getElementById("cell-"+cellIndex).innerHTML = "O";
 
-var cell5 = document.getElementById("cell-5")
-cell5.addEventListener("click", function() {
-    document.getElementById("cell-5").innerHTML = "X";
-    gameArray[5] = "x";
-    alert (gameArray);
-});
+    // restores clicking property for user
+        squareBox.classList.add('.square-box:hover');
 
-var cell6 = document.getElementById("cell-6")
-cell6.addEventListener("click", function() {
-    document.getElementById("cell-6").innerHTML = "X";
-    gameArray[6] = "x";
-    alert (gameArray);
-});
+    }, 2000);
+}
 
-var cell7 = document.getElementById("cell-7")
-cell7.addEventListener("click", function() {
-    document.getElementById("cell-7").innerHTML = "X";
-    gameArray[7] = "x";
-    alert (gameArray);
-});
+/*
+function gameLoop() {
+    if (trackTurn() = 1) {
+        computerMove();
+        
 
-var cell8 = document.getElementById("cell-8")
-cell8.addEventListener("click", function() {
-    document.getElementById("cell-8").innerHTML = "X";
-    gameArray[8] = "x";
-    alert (gameArray);
+
+
+    } else {
+
+    }
+}
+*/
+function declareWinner() {
     
-});
+}
+
+function trackTurn() {
+    let trackTurn = Math.round(Math.random());
+    return trackTurn;
+}
 
 
-// Restart Button
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// If cell clicked, changes its innerHTML and adds it to corresponding element in gameArray[]
+for (var i = 0; i <= 8; i++) {
+    var cell = document.getElementById("cell-" + i);
+    cell.addEventListener("click", function() {
+        this.innerHTML = "X";
+        gameArray[this.id.split('-')[1]] = "X";
+    });
+}
+
+
+
+
+
+
+
+// Restart Button - Random O positon generation
 var restartBtn = document.getElementById("restartBtn")
 restartBtn.addEventListener("click", function() {
-    let cellIndex = randomTurn();
-    gameArray[cellIndex] = "O";
-    document.getElementById("cell-"+cellIndex).innerHTML = "O";
-    alert('Restart Button has been clicked');
+    //
 });
+
 
 
 
