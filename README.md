@@ -1,4 +1,9 @@
 # phewtactoe
+# Status
+Currently it is in a robust stage, where you can click the cells to change their value to X and randomly generate an O when pressing "restart"
+nothing more nothing less.
+
+# Logic
 Browser based TicTacToe game with HTML, CSS, JS
 
 Here's a more detailed explanation of the logic behind a Tic Tac Toe game:
