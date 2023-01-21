@@ -11,11 +11,6 @@ const winConditions = [
     [2, 4, 6]
 ];
 
-let running = false;
-let currentTurn = "";
-
-// gameLoop();
-
 function randomTurn() {
     let randomTurnCell = Math.floor(Math.random() * 8);
     if (gameArray[randomTurnCell] == "") {
@@ -32,6 +27,7 @@ function randomTurn() {
         }
     }
 }
+
 function computerMove () {
     // Wait 2 secondes before continuing
     setTimeout(function() {
@@ -43,34 +39,101 @@ function computerMove () {
     }, 2000);
 }
 
-function gameLoop() {
+
+        /* ITTERATION 4
+async function gameLoop() {
     currentTurn = createTurn();
-    do {
-        if (currentTurn == 1) {
-            displayMove(currentTurn);
+
+    while (true) {
+        if (currentTurn === 0) {
+            displayMove(0);
+            await listenUserInput();
+            currentTurn = 1;
+
+        } else if (currentTurn === 1) {
+            displayMove(1);
             computerMove();
-            listenUserInput();
+            currentTurn = 0;
 
         } else {
-            displayMove(currentTurn);
-            listenUserInput();
-            computerMove();
+            console.log('gameloop error');
+        }
 
+        var winner = checkWin(gameArray);
+        if(winner !== ""){
+            console.log(winner + 'Wins!');
+            break;
         }
     }
-    while (checkWin(gameArray) != '');
-
 }
+
+        /*
+
+
+        /* ITTERATION 3
+    if (currentTurn === 1) {
+        do {
+            displayMove(currentTurn);
+            computerMove();
+            var currentTurn = 0;
+            displayMove(currentTurn);
+            await listenUserInput();
+            // var winner = checkWin(gameArray);
+        }
+        while (currentTurn === );
+        console.log(winner + 'Wins!');
+
+    } else if (currentTurn === 0) {
+        do {
+            displayMove(currentTurn);
+            await listenUserInput();
+            displayMove(currentTurn);
+            computerMove();
+            var winner = checkWin(gameArray);
+        }
+        while (winner === '');
+        console.log(winner+ 'Wins!');
+
+    } else {
+        console.log('ERROR: ln47 Wrong type f/createTurn')
+    }
+
+
+        /*
+        /* ITTERATION 2
+    do {
+        displayMove(currentTurn);
+
+        if (currentTurn == 1) {
+            computerMove();
+            var currentTurn = 0;
+
+        } else  {
+            await listenUserInput();
+            var currentTurn = 1; 
+        }
+       
+        displayMove(currentTurn);
+
+        var winner = checkWin(gameArray);
+    }
+    while (winner === '');
+    console.log(winner + 'Wins!');
+
+        */
+
+
 function displayMove(currentTurn) {
     let turnIndicator = document.getElementById("turnIndicator");
-    if (currentTurn == 1) {
-        let turnIndex = "O";
+    if (currentTurn === 1) {
         turnIndicator.innerHTML = "O's Turn"
-    } else {
-        let turnIndex = "X";
+    } else if (currentTurn === 0) {
         turnIndicator.innerHTML = "X's Turn"
+    } else {
+        console.log('display Move input ERROR')
+        console.log(currentTurn)
+        console.log(typeof currentTurn)
     }
-    // return turnIndex?
 }
 
 
@@ -91,15 +154,30 @@ function checkWin(gameArray) {
         if (gameArray[a] === gameArray[b] && gameArray[b] === gameArray[c]) {
             winner = gameArray[a];
             break;
+        } else {
+            
         }
     }
     return winner;
 }
 
-function declareWinner() {
-    return alert('X Has won!'); // test
+
+function listenUserInput() {
+    return new Promise(resolve => {
+        for (var i = 0; i <= 8; i++) {
+            var cell = document.getElementById("cell-" + i);
+            cell.addEventListener("click", function() {
+                this.innerHTML = "X";
+                gameArray[this.id.split('-')[1]] = "X";
+                resolve();
+            });
+        }
+    });
 }
 
+
+
+/*
 // If cell clicked, changes its innerHTML and adds it to corresponding element in gameArray[]
 function listenUserInput() {
     for (var i = 0; i <= 8; i++) {
@@ -110,12 +188,14 @@ function listenUserInput() {
         });
     }
 }
+*/
 
 
 // Restart Button - Random O positon generation
 var restartBtn = document.getElementById("restartBtn")
 restartBtn.addEventListener("click", function() {
     //
+    gameLoop();
 });
 
 
