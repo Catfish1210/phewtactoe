@@ -1,12 +1,12 @@
-# H1 Phewtactoe
-# H2 Status
-Currently the game is in a robust stage, where you can click the cells to change their value to X and randomly generate an O when f(computerMove) is initialized.
+# Phewtactoe
+### Status
+**Currently the game is in a robust stage**, where you can click the cells to change their value to X and randomly generate an O when f(computerMove) is initialized.
 nothing more nothing less.
-# H2 Issues
+### Issues
 1. Game logic needs to be worked out
 2. User can over-ride computer generated O's
 
-# H2 Logic
+#### Logic
 Browser based TicTacToe game with HTML, CSS, JS
 
 Here's a more detailed explanation of the logic behind a Tic Tac Toe game:
