@@ -25,6 +25,7 @@ h1 {
 }
 
 .square-box {
+
     width: 100px;
     height: 100px;
     background-color: #203540;
@@ -33,7 +34,12 @@ h1 {
     padding: 8px;
     border: solid 2px transparent;
     transition: border 0.15s ease-in-out;
-    
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: xx-large;
+    text-align: center;
+
 }
 
 .square-box:hover {
@@ -59,10 +65,10 @@ table {
     padding: 8px;
     border: solid 3px transparent;
     transition: border 0.2s ease-in-out;
+    text-align: center;
     font-family: 'Sofia Sans', sans-serif;
     font-weight: 700;
     font-style: bold;
-    text-align: center;
 }
 
 .square-box02:hover {
@@ -78,3 +84,20 @@ table {
     font-style: italic;
 }
 
+.cyan {
+    color: #38c4bd;
+    text-align: center;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 700;
+    font-style: bold;
+    font-size: xx-large;
+}
+
+.orange {
+    color: #f1b142;
+    text-align: center;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 700;
+    font-style: bold;
+    font-size: xx-large;
+}

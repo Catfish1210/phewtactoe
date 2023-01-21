@@ -34,93 +34,14 @@ function computerMove () {
         console.log("Deciding on my move...")
         let cellIndex = randomTurn();
         gameArray[cellIndex] = "O";
-        document.getElementById("cell-"+cellIndex).innerHTML = "O";
+        document.getElementById("cell-"+cellIndex).innerHTML = "<h3 class='orange'>O</h3>";
         console.log(gameArray);
     }, 2000);
 }
 
+function gameLoop() {
 
-        /* ITTERATION 4
-async function gameLoop() {
-    currentTurn = createTurn();
-
-    while (true) {
-        if (currentTurn === 0) {
-            displayMove(0);
-            await listenUserInput();
-            currentTurn = 1;
-
-        } else if (currentTurn === 1) {
-            displayMove(1);
-            computerMove();
-            currentTurn = 0;
-
-        } else {
-            console.log('gameloop error');
-        }
-
-        var winner = checkWin(gameArray);
-        if(winner !== ""){
-            console.log(winner + 'Wins!');
-            break;
-        }
-    }
 }
-
-        /*
-
-
-        /* ITTERATION 3
-    if (currentTurn === 1) {
-        do {
-            displayMove(currentTurn);
-            computerMove();
-            var currentTurn = 0;
-            displayMove(currentTurn);
-            await listenUserInput();
-            // var winner = checkWin(gameArray);
-        }
-        while (currentTurn === );
-        console.log(winner + 'Wins!');
-
-    } else if (currentTurn === 0) {
-        do {
-            displayMove(currentTurn);
-            await listenUserInput();
-            displayMove(currentTurn);
-            computerMove();
-            var winner = checkWin(gameArray);
-        }
-        while (winner === '');
-        console.log(winner+ 'Wins!');
-
-    } else {
-        console.log('ERROR: ln47 Wrong type f/createTurn')
-    }
-
-
-        /*
-        /* ITTERATION 2
-    do {
-        displayMove(currentTurn);
-
-        if (currentTurn == 1) {
-            computerMove();
-            var currentTurn = 0;
-
-        } else  {
-            await listenUserInput();
-            var currentTurn = 1; 
-        }
-       
-        displayMove(currentTurn);
-
-        var winner = checkWin(gameArray);
-    }
-    while (winner === '');
-    console.log(winner + 'Wins!');
-
-        */
 
 
 function displayMove(currentTurn) {
@@ -167,7 +88,7 @@ function listenUserInput() {
         for (var i = 0; i <= 8; i++) {
             var cell = document.getElementById("cell-" + i);
             cell.addEventListener("click", function() {
-                this.innerHTML = "X";
+                this.innerHTML = "<h3 class='cyan'>X</h3>"; 
                 gameArray[this.id.split('-')[1]] = "X";
                 resolve();
             });
@@ -195,9 +116,20 @@ function listenUserInput() {
 var restartBtn = document.getElementById("restartBtn")
 restartBtn.addEventListener("click", function() {
     //
-    gameLoop();
+    // gameLoop();
+    listenUserInput();
 });
 
+/*GPT
+const squareBoxes = document.getElementsByClassName("square-box");
 
-
-
+for (let i = 0; i < squareBoxes.length; i++) {
+    squareBoxes[i].addEventListener("click", function() {
+        if(input === "X"){
+            this.innerHTML = "<h1 class='red'>X</h1>";
+        }else{
+            this.innerHTML = "<h1 class='green'>O</h1>";
+        }
+    });
+}
+*/
