@@ -1,5 +1,21 @@
 let gameArray = Array(8).fill("");
 
+const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
+
+let running = false;
+let currentTurn = "";
+
+// gameLoop();
+
 function randomTurn() {
     let randomTurnCell = Math.floor(Math.random() * 8);
     if (gameArray[randomTurnCell] == "") {
@@ -16,80 +32,84 @@ function randomTurn() {
         }
     }
 }
-
-
-
-
-
 function computerMove () {
-    // remove clicking property (pointer events) from user
-    let squareBox = document.querySelector('.square-box');
-    squareBox.classList.remove('.square-box:hover');
-
-
     // Wait 2 secondes before continuing
     setTimeout(function() {
         console.log("Deciding on my move...")
         let cellIndex = randomTurn();
         gameArray[cellIndex] = "O";
         document.getElementById("cell-"+cellIndex).innerHTML = "O";
-
-    // restores clicking property for user
-        squareBox.classList.add('.square-box:hover');
-
+        console.log(gameArray);
     }, 2000);
 }
 
-/*
 function gameLoop() {
-    if (trackTurn() = 1) {
-        computerMove();
-        
+    currentTurn = createTurn();
+    do {
+        if (currentTurn == 1) {
+            displayMove(currentTurn);
+            computerMove();
+            listenUserInput();
 
+        } else {
+            displayMove(currentTurn);
+            listenUserInput();
+            computerMove();
 
-
-    } else {
-
+        }
     }
+    while (checkWin(gameArray) != '');
+
 }
-*/
+function displayMove(currentTurn) {
+    let turnIndicator = document.getElementById("turnIndicator");
+    if (currentTurn == 1) {
+        let turnIndex = "O";
+        turnIndicator.innerHTML = "O's Turn"
+    } else {
+        let turnIndex = "X";
+        turnIndicator.innerHTML = "X's Turn"
+    }
+    // return turnIndex?
+}
+
+
+
+function createTurn() {
+    let createTurn = Math.round(Math.random());
+    return createTurn;
+}
+
+function checkWin(gameArray) {
+    var i;
+    var j;
+    var winner = '';
+    for (i = 0; i < winConditions.length; i++) {
+        var a = winConditions[i][0];
+        var b = winConditions[i][1];
+        var c = winConditions[i][2];
+        if (gameArray[a] === gameArray[b] && gameArray[b] === gameArray[c]) {
+            winner = gameArray[a];
+            break;
+        }
+    }
+    return winner;
+}
+
 function declareWinner() {
-    
+    return alert('X Has won!'); // test
 }
-
-function trackTurn() {
-    let trackTurn = Math.round(Math.random());
-    return trackTurn;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // If cell clicked, changes its innerHTML and adds it to corresponding element in gameArray[]
-for (var i = 0; i <= 8; i++) {
-    var cell = document.getElementById("cell-" + i);
-    cell.addEventListener("click", function() {
-        this.innerHTML = "X";
-        gameArray[this.id.split('-')[1]] = "X";
-    });
+function listenUserInput() {
+    for (var i = 0; i <= 8; i++) {
+        var cell = document.getElementById("cell-" + i);
+        cell.addEventListener("click", function() {
+            this.innerHTML = "X";
+            gameArray[this.id.split('-')[1]] = "X";
+        });
+    }
 }
-
-
-
-
-
 
 
 // Restart Button - Random O positon generation
