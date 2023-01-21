@@ -1,5 +1,5 @@
 # Phewtactoe
-## About
+### About
 This is my personal project to practise Git/HTML/CSS/**JS**
 ### Status
 **Currently the game is in a robust stage**, where you can click the cells to change their value to X and randomly generate an O when f(computerMove) is initialized.
