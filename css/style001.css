@@ -84,6 +84,9 @@ table {
     font-style: italic;
 }
 
+.square-box04 {
+    display: flex;
+}
 .cyan {
     color: #38c4bd;
     text-align: center;
