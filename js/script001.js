@@ -44,19 +44,6 @@ function computerMove() {
 }
 
 
-
-    /* Wait 2 secondes before continuing
-    setTimeout(function() {
-        console.log("Deciding on my move...")
-        let cellIndex = randomTurn();
-        gameArray[cellIndex] = "O";
-        document.getElementById("cell-"+cellIndex).innerHTML = "<h3 class='orange'>O</h3>";
-        console.log(gameArray);
-    }, 2000);
-    */
-
-
-
 let turnIndex = createTurn();
 async function gameLoop() {
     while (gameState === true) {
@@ -65,9 +52,9 @@ async function gameLoop() {
             displayMove(0);
             await listenUserInput();
             disableCells();
-            
+
             if (checkWin(gameArray) === '') {
-                turnIndex = 1;
+                turnIndex = 1; //update the turnIndex here
                 continue;
 
             } else {
@@ -84,7 +71,7 @@ async function gameLoop() {
             await computerMove();
 
             if (checkWin(gameArray) === '') {
-                turnIndex = 0;
+                turnIndex = 0; //update the turnIndex here
                 continue;
 
             } else {
@@ -95,13 +82,13 @@ async function gameLoop() {
                 disableCells();
             }
 
-            turnIndex = 0;
-
         } else {
             console.log('gameloop else ERROR')
         }
     }
 }
+
+
 
 
 function displayMove(currentTurn) {
@@ -141,14 +128,44 @@ function checkWin(gameArray) {
         if (gameArray[a] === gameArray[b] && gameArray[b] === gameArray[c]) {
             winner = gameArray[a];
             break;
-        } else {
-            
+        } 
+    }
+    if (winner === '') {
+        let emptyCells = gameArray.filter(cell => cell === "").length;
+        if (emptyCells === 0) {
+            console.log("It's a tie!");
         }
     }
     return winner;
 }
 
+let userTurn = true;
 
+function listenUserInput() {
+    return new Promise(resolve => {
+        if(userTurn){
+            for (var i = 0; i <= 8; i++) {
+                var cell = document.getElementById("cell-" + i);
+                cell.addEventListener("click", function() {
+                    if (this.innerHTML !== "") return;
+                        this.innerHTML = "<h3 class='cyan'>X</h3>"; 
+                        gameArray[this.id.split('-')[1]] = "X";
+                        userTurn = false;
+                        resolve();
+                });
+            }
+        }else{
+            // computer move
+            userTurn = true;
+        }
+    });
+}
+
+
+
+
+
+/* OLD
 function listenUserInput() {
     return new Promise(resolve => {
         for (var i = 0; i <= 8; i++) {
@@ -163,19 +180,14 @@ function listenUserInput() {
         }
     });
 }
-
+*/
 
 
 
 // Restart Button - Random O positon generation
 var restartBtn = document.getElementById("restartBtn")
 restartBtn.addEventListener("click", function() {
+    // gameArray = Array(8).fill("");
+    // gameState = true
     gameLoop();
 });
-
-/*
-===PSEUDOCODE Gamelogic===
-Generate a random turn (computer/user)
-    Display who's turn is it
-
-*/

@@ -2,8 +2,15 @@
 ### About
 This is my personal project to practice Git/HTML/CSS/**JS**
 ### Status
-**Currently the game is in a robust stage**, where you can click the cells to change their value to X and randomly generate an O when f(computerMove) is initialized.
-nothing more nothing less.
+**Currently the game is in a robust stage**
+This JS script is for a game of Tic-Tac-Toe where one player is the user and the other is a computer. 
+The game is played on a 3x3 grid represented by an array called gameArray. 
+The winConditions array contains all the possible winning combinations. 
+The gameState variable keeps track of whether the game is ongoing or has ended. 
+The randomTurn() function generates a random cell index for the computer's move. 
+The computerMove() function uses setTimeout() to delay the computer's move by 2 seconds, then chooses a random cell and updates the gameArray and the cell's HTML to display an "O". 
+The gameLoop() function handles the game flow, alternating between the user and computer's turns, calling the checkWin() function to see if the game has ended, and updating the turn indicator. 
+The displayMove() function updates the turn indicator, the disableCells() function disables the cells so that no more moves can be made, the createTurn() function randomly assigns the starting turn, and the listenUserInput() function waits for the user's input and updates the gameArray and the cell's HTML to display an "X".
 ### Issues
 1. Game logic needs to be worked out
 2. User can over-ride computer generated O's
