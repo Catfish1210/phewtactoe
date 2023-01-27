@@ -11,6 +11,8 @@ const winConditions = [
     [2, 4, 6]
 ];
 
+let gameState = true;
+
 function randomTurn() {
     let randomTurnCell = Math.floor(Math.random() * 8);
     if (gameArray[randomTurnCell] == "") {
@@ -28,8 +30,22 @@ function randomTurn() {
     }
 }
 
-function computerMove () {
-    // Wait 2 secondes before continuing
+function computerMove() {
+    return new Promise(resolve => {
+        setTimeout(function() {
+            console.log("Deciding on my move...")
+            let cellIndex = randomTurn();
+            gameArray[cellIndex] = "O";
+            document.getElementById("cell-"+cellIndex).innerHTML = "<h3 class='orange'>O</h3>";
+            console.log(gameArray);
+            resolve();
+        }, 2000);
+    });
+}
+
+
+
+    /* Wait 2 secondes before continuing
     setTimeout(function() {
         console.log("Deciding on my move...")
         let cellIndex = randomTurn();
@@ -37,10 +53,54 @@ function computerMove () {
         document.getElementById("cell-"+cellIndex).innerHTML = "<h3 class='orange'>O</h3>";
         console.log(gameArray);
     }, 2000);
-}
+    */
 
-function gameLoop() {
 
+
+let turnIndex = createTurn();
+async function gameLoop() {
+    while (gameState === true) {
+        // 0 - X aka. player
+        if (turnIndex === 0) {
+            displayMove(0);
+            await listenUserInput();
+            disableCells();
+            
+            if (checkWin(gameArray) === '') {
+                turnIndex = 1;
+                continue;
+
+            } else {
+                console.log('game over!');
+                console.log('winner is');
+                console.log(checkWin(gameArray));
+                gameState = false;
+                disableCells();
+            }
+            
+        // 1 - O aka. computer
+        } else if (turnIndex === 1) {
+            displayMove(1);
+            await computerMove();
+
+            if (checkWin(gameArray) === '') {
+                turnIndex = 0;
+                continue;
+
+            } else {
+                console.log('game over!');
+                console.log('winner is');
+                console.log(checkWin(gameArray));
+                gameState = false;
+                disableCells();
+            }
+
+            turnIndex = 0;
+
+        } else {
+            console.log('gameloop else ERROR')
+        }
+    }
 }
 
 
@@ -57,6 +117,12 @@ function displayMove(currentTurn) {
     }
 }
 
+function disableCells() {
+    for (var i = 0; i <= 8; i++) {
+        var cell = document.getElementById("cell-" + i);
+        cell.removeEventListener("click", listenUserInput);
+    }
+}
 
 
 function createTurn() {
@@ -88,9 +154,11 @@ function listenUserInput() {
         for (var i = 0; i <= 8; i++) {
             var cell = document.getElementById("cell-" + i);
             cell.addEventListener("click", function() {
-                this.innerHTML = "<h3 class='cyan'>X</h3>"; 
-                gameArray[this.id.split('-')[1]] = "X";
-                resolve();
+                if (this.innerHTML !== "") return;
+                    this.innerHTML = "<h3 class='cyan'>X</h3>"; 
+                    gameArray[this.id.split('-')[1]] = "X";
+                    resolve();
+                    cell.removeEventListener("click", arguments.callee);
             });
         }
     });
@@ -98,38 +166,16 @@ function listenUserInput() {
 
 
 
-/*
-// If cell clicked, changes its innerHTML and adds it to corresponding element in gameArray[]
-function listenUserInput() {
-    for (var i = 0; i <= 8; i++) {
-        var cell = document.getElementById("cell-" + i);
-        cell.addEventListener("click", function() {
-            this.innerHTML = "X";
-            gameArray[this.id.split('-')[1]] = "X";
-        });
-    }
-}
-*/
-
 
 // Restart Button - Random O positon generation
 var restartBtn = document.getElementById("restartBtn")
 restartBtn.addEventListener("click", function() {
-    //
-    // gameLoop();
-    listenUserInput();
+    gameLoop();
 });
 
-/*GPT
-const squareBoxes = document.getElementsByClassName("square-box");
+/*
+===PSEUDOCODE Gamelogic===
+Generate a random turn (computer/user)
+    Display who's turn is it
 
-for (let i = 0; i < squareBoxes.length; i++) {
-    squareBoxes[i].addEventListener("click", function() {
-        if(input === "X"){
-            this.innerHTML = "<h1 class='red'>X</h1>";
-        }else{
-            this.innerHTML = "<h1 class='green'>O</h1>";
-        }
-    });
-}
 */
