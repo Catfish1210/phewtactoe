@@ -37,9 +37,24 @@ function setHoverText() {
 
 setHoverText();
 
-function computerMove() {
-  
+function computerMove(boardState) {
+  let randomTurnCell = Math.floor(Math.random()* 9);
+  if (boardState[randomTurnCell] === "") {
+    return randomTurnCell;
+  } else {
+    let counter = 0;
+    let limit = 9;
+    while (counter < limit) {
+      randomTurnCell = Math.floor(Math.random()* 9);
+      if (boardState[randomTurnCell] === "") {
+        return randomTurnCell;
+      }
+      counter++;
+    }
+
+  }
 }
+
 function tileClick(event) {
   if (gameOverArea.classList.contains("visible")) {
     return;
@@ -55,9 +70,10 @@ function tileClick(event) {
     tile.innerText = PLAYER_X;
     boardState[tileNumber - 1] = PLAYER_X;
     turn = PLAYER_O;
+    
   } else {
     tile.innerText = PLAYER_O;
-    boardState[tileNumber - 1] = PLAYER_O;
+    boardState[tileNumber - 1] = computerMove(boardState);
     turn = PLAYER_X;
   }
 

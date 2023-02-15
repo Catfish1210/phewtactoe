@@ -46,6 +46,27 @@ body {
     text-align: center;
 
 }
+.square-box2 {
+    width: 180px;
+    height: 60px;
+    background-color: #203540;
+    border-radius: 15px;
+    box-shadow: 4px 6px 4px #111b20;
+    padding: 8px;
+    border: solid 2px transparent;
+    text-align: center;
+    transition: border 0.15s ease-in-out;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: xx-large;
+    text-align: center;
+
+}
+.square-box2:hover {
+    border: solid 2px #75a9c5b5;
+    cursor: pointer;
+}
 .square-box:hover {
     border: solid 2px #75a9c5b5;
     cursor: pointer;
