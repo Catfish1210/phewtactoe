@@ -38,22 +38,29 @@ function setHoverText() {
 setHoverText();
 
 function computerMove(boardState) {
-  let randomTurnCell = Math.floor(Math.random()* 9);
+  // Check if game is already over
+  if (gameOverArea.classList.contains("visible")) {
+    return null;
+  }
+
+  let randomTurnCell = Math.floor(Math.random() * 9);
   if (boardState[randomTurnCell] === "") {
     return randomTurnCell;
   } else {
     let counter = 0;
     let limit = 9;
     while (counter < limit) {
-      randomTurnCell = Math.floor(Math.random()* 9);
+      randomTurnCell = Math.floor(Math.random() * 9);
       if (boardState[randomTurnCell] === "") {
         return randomTurnCell;
       }
       counter++;
     }
-
   }
 }
+
+
+
 
 function tileClick(event) {
   if (gameOverArea.classList.contains("visible")) {
@@ -70,17 +77,45 @@ function tileClick(event) {
     tile.innerText = PLAYER_X;
     boardState[tileNumber - 1] = PLAYER_X;
     turn = PLAYER_O;
-    
-  } else {
-    tile.innerText = PLAYER_O;
-    boardState[tileNumber - 1] = computerMove(boardState);
-    turn = PLAYER_X;
-  }
 
-  clickSound.play();
-  setHoverText();
-  checkWinner();
+    clickSound.play();
+    setHoverText();
+    checkWinner();
+
+    setTimeout(() => {
+      computerMoveTile();
+      clickSound.play();
+      setHoverText();
+      checkWinner();
+    }, 1000);
+  }
 }
+
+function computerMoveTile() {
+  let randomTurnCell = Math.floor(Math.random() * 9);
+  if (boardState[randomTurnCell] === null) {
+    tiles[randomTurnCell].innerText = PLAYER_O;
+    boardState[randomTurnCell] = PLAYER_O;
+    turn = PLAYER_X;
+  } else {
+    let counter = 0;
+    let limit = 9;
+    while (counter < limit) {
+      randomTurnCell = Math.floor(Math.random() * 9);
+      if (boardState[randomTurnCell] === null) {
+        tiles[randomTurnCell].innerText = PLAYER_O;
+        boardState[randomTurnCell] = PLAYER_O;
+        turn = PLAYER_X;
+        break;
+      }
+      counter++;
+    }
+  }
+}
+
+
+
+
 
 function checkWinner() {
   //Check for a winner
@@ -98,6 +133,7 @@ function checkWinner() {
     ) {
       strike.classList.add(strikeClass);
       gameOverScreen(tileValue1);
+      tiles.forEach((tile) => tile.removeEventListener("click", tileClick));
       return;
     }
   }
@@ -106,8 +142,10 @@ function checkWinner() {
   const allTileFilledIn = boardState.every((tile) => tile !== null);
   if (allTileFilledIn) {
     gameOverScreen(null);
+    tiles.forEach((tile) => tile.removeEventListener("click", tileClick));
   }
 }
+
 
 function gameOverScreen(winnerText) {
   let text = "Draw!";
