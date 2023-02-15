@@ -37,6 +37,9 @@ function setHoverText() {
 
 setHoverText();
 
+function computerMove() {
+  
+}
 function tileClick(event) {
   if (gameOverArea.classList.contains("visible")) {
     return;

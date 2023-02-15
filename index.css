@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,400;1,500&display=swap');
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: black;
-    color: greenyellow;
+    background-color: #192a32;
+    color: #f1b142;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 900;
+    font-style: normal;
   }
   
   #board {
@@ -15,24 +20,39 @@ body {
   }
   
   .tile {
+
     color: currentColor;
     font-size: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
-  
-  .right-border {
-    border-right: 0.2em solid indigo;
-  }
-  
-  .bottom-border {
-    border-bottom: 0.2em solid indigo;
-  }
-  
+
+  .square-box {
+    width: 70px;
+    height: 70px;
+    background-color: #203540;
+    border-radius: 15px;
+    box-shadow: 4px 6px 4px #111b20;
+    padding: 8px;
+    border: solid 2px transparent;
+    text-align: center;
+    transition: border 0.15s ease-in-out;
+    font-family: 'Sofia Sans', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: xx-large;
+    text-align: center;
+
+}
+.square-box:hover {
+    border: solid 2px #75a9c5b5;
+    cursor: pointer;
+}
   .strike {
     position: absolute;
-    background-color: darkred;
+    background-color: red;
   }
   
   .strike-row-1 {
@@ -86,7 +106,7 @@ body {
   
   #game-over-area {
     text-align: center;
-    border: indigo 8px solid;
+    border: currentColor 8px solid;
     padding: 50px;
     width: 50%;
     margin-top: 50px;
