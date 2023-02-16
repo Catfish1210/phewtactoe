@@ -65,6 +65,7 @@ function computerMove(boardState) {
 function tileClick(event) {
   if (gameOverArea.classList.contains("visible")) {
     return;
+
   }
 
   const tile = event.target;
@@ -118,7 +119,7 @@ function computerMoveTile() {
 
 
 function checkWinner() {
-  //Check for a winner
+  //Check for winner
   for (const winningCombination of winningCombinations) {
     //Object Destructuring
     const { combo, strikeClass } = winningCombination;
@@ -138,7 +139,7 @@ function checkWinner() {
     }
   }
 
-  //Check for a draw
+  //Check for draw
   const allTileFilledIn = boardState.every((tile) => tile !== null);
   if (allTileFilledIn) {
     gameOverScreen(null);
@@ -155,9 +156,11 @@ function gameOverScreen(winnerText) {
   gameOverArea.className = "visible";
   gameOverText.innerText = text;
   gameOverSound.play();
+  
 }
 
 function startNewGame() {
+  location.reload();
   strike.className = "strike";
   gameOverArea.className = "hidden";
   boardState.fill(null);
@@ -167,15 +170,15 @@ function startNewGame() {
 }
 
 const winningCombinations = [
-  //rows
+  //row
   { combo: [1, 2, 3], strikeClass: "strike-row-1" },
   { combo: [4, 5, 6], strikeClass: "strike-row-2" },
   { combo: [7, 8, 9], strikeClass: "strike-row-3" },
-  //columns
+  //col
   { combo: [1, 4, 7], strikeClass: "strike-column-1" },
   { combo: [2, 5, 8], strikeClass: "strike-column-2" },
   { combo: [3, 6, 9], strikeClass: "strike-column-3" },
-  //diagonals
+  //diag
   { combo: [1, 5, 9], strikeClass: "strike-diagonal-1" },
   { combo: [3, 5, 7], strikeClass: "strike-diagonal-2" },
 ];

@@ -127,10 +127,11 @@ body {
   
   #game-over-area {
     text-align: center;
-    border: currentColor 8px solid;
-    padding: 50px;
-    width: 50%;
+    border: currentColor 4px solid;
+    padding: 30px;
+    width: 25%;
     margin-top: 50px;
+  
   }
   
   h2 {
